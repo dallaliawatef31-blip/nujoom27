@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة النجوم للتعلم التفاعلي الذكي - إشراف أستاذة التعليم الابتدائي عواطف دلالي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&display=swap');
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            margin: 0; padding: 20px;
+            direction: rtl; text-align: right;
+            min-height: 100vh; color: #1e293b;
+        }
+
+        .platform-container {
+            width: 100%; max-width: 1400px; margin: 0 auto;
+            background: #ffffff; border-radius: 25px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden; padding: 30px;
+            border: 4px solid #f59e0b;
+        }
+
+        .platform-header {
+            text-align: center; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 25px; border-radius: 20px;
+            border: 2px dashed #f59e0b; margin-bottom: 25px;
+        }
+
+        .platform-header h1 { font-size: 32px; color: #b45309; margin: 0 0 8px 0; font-weight: 900; }
+        .platform-header p { font-size: 18px; color: #475569; margin: 0 0 12px 0; font-weight: 700; }
+
+        .teacher-signature {
+            font-size: 16px; color: #dc2626; font-weight: 900;
+            background: #ffffff; padding: 8px 20px;
+            border-radius: 15px; display: inline-block;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* بوابة الدخول */
+        .login-box {
+            background: #f8fafc; padding: 40px; border-radius: 20px;
+            text-align: center; border: 3px solid #3b82f6;
+            max-width: 600px; margin: 40px auto;
+        }
+
+        .login-box label { font-size: 20px; color: #1d4ed8; font-weight: 900; display: block; margin-bottom: 20px; }
+        .login-box input {
+            padding: 16px; border-radius: 12px; border: 2px solid #cbd5e1;
+            font-family: 'Cairo', sans-serif; font-size: 20px;
+            width: 100%; text-align: center; outline: none; margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
+            color: white; width: 100%; padding: 16px; border: none;
+            border-radius: 12px; font-weight: 900; cursor: pointer;
+            font-size: 20px; font-family: 'Cairo', sans-serif;
+            transition: transform 0.2s;
+        }
+        .btn-login:hover { transform: translateY(-2px); }
+
+        /* اللوحة الرئيسية والتنقل */
+        #studentStudio { display: none; }
+        .badge-panel {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+            border: 2px solid #f97316; padding: 18px 25px;
+            border-radius: 18px; margin-bottom: 25px;
+            font-weight: 900; color: #9a3412;
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 18px;
+        }
+
+        .section-tabs { display: flex; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-btn {
+            flex: 1; min-width: 160px; padding: 15px; border: none;
+            border-radius: 15px; font-family: 'Cairo', sans-serif;
+            font-weight: 900; font-size: 16px; cursor: pointer;
+            background: #f1f5f9; color: #475569;
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+
+        .selector-box {
+            margin-bottom: 25px; background: #f8fafc;
+            padding: 20px; border-radius: 18px; border: 2px solid #e2e8f0;
+        }
+        .selector-box label { font-size: 18px; font-weight: 900; color: #334155; display: block; margin-bottom: 10px; }
+        .selector-box select {
+            padding: 14px; border-radius: 12px; border: 2px solid #cbd5e1;
+            font-family: 'Cairo', sans-serif; font-size: 18px;
+            width: 100%; background: #fff; font-weight: 700; outline: none;
+        }
+
+        .paper-card {
+            background: #ffffff; border: 3px double #f59e0b;
+            border-radius: 20px; padding: 35px; margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .paper-badge {
+            background: #f59e0b; color: white; padding: 6px 18px;
+            border-radius: 20px; font-size: 15px; display: inline-block;
+            font-weight: 900; margin-bottom: 15px;
+        }
+
+        .paper-title {
+            color: #78350f; font-size: 26px; margin: 0 0 20px 0;
+            font-weight: 900; border-bottom: 2px dashed #fde68a; padding-bottom: 10px;
+        }
+
+        .paper-text-box {
+            background: #fffbeb; border: 2px solid #fde68a;
+            border-radius: 18px; padding: 30px;
+            font-size: 22px; line-height: 2.4;
+            color: #1c1917; text-align: justify; margin: 20px 0;
+            font-weight: 700; min-height: 180px;
+        }
+
+        /* تنسيقات القراءة */
+        .word-interactive { cursor: pointer; padding: 2px 8px; border-radius: 8px; transition: all 0.2s ease; display: inline-block; }
+        .word-interactive:hover { background-color: #fde68a; color: #b45309; }
+        .word-error-highlight { background-color: #fee2e2 !important; color: #dc2626 !important; border-bottom: 3px dotted #ef4444; }
+
+        .speech-control-bar { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .speech-btn {
+            flex: 1; padding: 14px 20px; border: none; border-radius: 12px;
+            font-weight: 900; font-family: 'Cairo', sans-serif; font-size: 16px;
+            cursor: pointer; color: white; transition: transform 0.2s;
+        }
+        .speech-btn:hover { transform: translateY(-2px); }
+
+        /* تنسيقات المسائل الرياضية (المدمجة) */
+        .math-bank-container { max-width: 900px; margin: 0 auto; }
+        .math-nav-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .math-tab-btn {
+            background: #e0c9a6; color: #333; border: none;
+            padding: 12px 25px; font-size: 16px; font-weight: bold;
+            border-radius: 10px; cursor: pointer; transition: 0.3s;
+        }
+        .math-tab-btn.active { background: #2e8b57; color: white; box-shadow: 0 5px 15px rgba(46,139,87,0.3); }
+        .math-group { display: none; }
+        .math-group.active { display: block; animation: fadeIn 0.5s; }
+
+        .problem-card {
+            background: #fff; border: 2px solid #e0c9a6;
+            border-radius: 20px; padding: 25px; margin-bottom: 25px;
+            position: relative; transition: 0.3s;
+        }
+        .problem-card:hover { border-color: #2e8b57; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .problem-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed #e0c9a6; padding-bottom: 10px; }
+        .problem-title { color: #2e8b57; font-weight: 900; font-size: 19px; }
+        .problem-type { background: #fdf5e6; color: #b8860b; padding: 5px 12px; border-radius: 15px; font-size: 14px; font-weight: bold; }
+        .problem-text { font-size: 18px; line-height: 1.8; color: #333; margin-bottom: 20px; text-align: justify; }
+
+        .answer-zone { background: #f9f9f9; padding: 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .math-input {
+            padding: 12px; width: 140px; border-radius: 10px;
+            border: 2px solid #ccc; font-size: 18px; text-align: center;
+            font-family: 'Cairo', sans-serif; font-weight: bold;
+        }
+        .math-input:focus { border-color: #2e8b57; outline: none; }
+
+        .check-btn {
+            background: #2e8b57; color: white; border: none;
+            padding: 12px 25px; border-radius: 10px; cursor: pointer;
+            font-weight: bold; font-size: 16px; font-family: 'Cairo', sans-serif;
+        }
+        .check-btn:hover { background: #236b43; }
+
+        .hint-btn {
+            background: #ff8c00; color: white; border: none;
+            padding: 8px 15px; border-radius: 8px; cursor: pointer;
+            font-size: 14px; font-weight: bold; font-family: 'Cairo', sans-serif;
+        }
+
+        .feedback { font-weight: bold; font-size: 16px; margin-top: 15px; min-height: 24px; }
+        .hint-box {
+            display: none; background: #fff8dc; border-right: 5px solid #ff8c00;
+            padding: 15px; margin-top: 15px; border-radius: 8px;
+            font-size: 15px; color: #555; animation: slideDown 0.3s;
+        }
+
+        /* تنسيقات البطاقات والشهادة */
+        .form-group { margin-bottom: 20px; text-align: right; }
+        .form-group label { display: block; font-weight: 900; color: #1e293b; margin-bottom: 8px; font-size: 16px; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 14px; border-radius: 12px; border: 2px solid #cbd5e1;
+            font-family: 'Cairo', sans-serif; font-size: 16px; background: #fff; outline: none; font-weight: 600;
+        }
+
+        /* لوحة التحكم */
+        .admin-dashboard-box { background: #fff7ed; border: 3px dashed #f97316; padding: 25px; border-radius: 20px; margin-bottom: 25px; }
+
+        /* حركات */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideDown { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="platform-container">
+    <header class="platform-header">
+        <h1>🌟 منصة النجوم للتعلم التفاعلي الذكي 🚀</h1>
+        <p>السنة الثانية أ 4 - المدرسة الابتدائية الحسين بوزيان بقفصة</p>
+        <div class="teacher-signature">إشراف أستاذة التعليم الابتدائي عواطف دلالي 👩‍🏫</div>
+    </header>
+
+    <!-- ================= بوابة الدخول SafeGate ================= -->
+    <div class="login-box" id="loginBox">
+        <label>✨ أدخل رقم المعرف (للتلميذ) أو رمز المشرفة (لإدارة المنصة):</label>
+        <input type="text" id="accessInput" placeholder="أدخل المعرف أو الرمز السري هنا...">
+        <button type="button" class="btn-login" onclick="executeLogin()">دخول آمن للمنصة 🚀</button>
+        <p id="loginError" style="color: #ef4444; font-size: 16px; margin-top: 15px; font-weight: 900; display: none;">⚠️ رمز الدخول غير صحيح، تأكد منه!</p>
+    </div>
+
+    <!-- ================= واجهة الاستوديو الرئيسية (مخفية) ================= -->
+    <div id="studentStudio">
+        <div class="badge-panel">
+            <div>🏆 المستخدم: <span id="activeStudentName" style="color: #c2410c;"></span> | <span id="scoreTracker">📚 بطاقات المطالعة: <span id="storyCount">0</span> / 25</span></div>
+            <div><button onclick="location.reload()" style="background: #dc2626; color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 900; cursor: pointer; font-family: 'Cairo', sans-serif;">🚪 خروج</button></div>
+        </div>
+
+        <!-- أزرار التنقل الرئيسية -->
+        <div class="section-tabs">
+            <button class="tab-btn active" onclick="switchSection('reading')">📖 القراءة الجهرية</button>
+            <button class="tab-btn" onclick="switchSection('math')">🧮 بنك المسائل الـ 30</button>
+            <button class="tab-btn" onclick="switchSection('library')">📚 مكتبة القصص</button>
+            <button class="tab-btn" onclick="switchSection('story')">📝 بطاقة المطالعة</button>
+            <button class="tab-btn" id="teacherTabBtn" onclick="switchSection('adminPanel')" style="background: #ea580c; color: white; display: none;">🛠️ لوحة التحكم</button>
+        </div>
+
+        <!-- ================= قسم 1: القراءة الجهرية ================= -->
+        <div id="readingSection" class="content-section active">
+            <div class="selector-box">
+                <label>📚 اختر الدرس المدروس من كتاب القراءة:</label>
+                <select id="lessonSelect" onchange="loadReadingLesson()">
+                    <option value="0">الدَّرْسُ 1: مَدْرَسَةُ يَاسَمِينَ</option>
+                    <option value="1">الدَّرْسُ 2: فِي العُطْلَةِ</option>
+                </select>
+            </div>
+            <main class="paper-card">
+                <div class="paper-badge">كتاب القراءة الجهرية المحكاة (AfL)إليك الكود الكامل للمنصة، جاهز للنسخ واللصق:
+
+```html
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة التدريب على حل المسائل الرياضية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .problem {
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .option {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>منصة التدريب على حل المسائل الرياضية</h1>
+        <div id="quiz">
+            </div>
+        <button id="submit">إرسال الإجابات</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "ما هو ناتج 2 + 2؟",
+                options: ["3", "4", "5", "6"],
+                answer: "4"
+            },
+            {
+                question: "ما هو ناتج 5 * 3؟",
+                options: ["12", "15", "18", "21"],
+                answer: "15"
+            },
+            {
+                question: "ما هو ناتج 10 / 2؟",
+                options: ["3", "4", "5", "6"],
+                answer: "5"
+            }
+        ];
+
+        const quizContainer = document.getElementById("quiz");
+        const submitButton = document.getElementById("submit");
+        const resultContainer = document.getElementById("result");
+
+        function buildQuiz() {
+            quizData.forEach((data, index) => {
+                const problemDiv = document.createElement("div");
+                problemDiv.classList.add("problem");
+
+                const questionH3 = document.createElement("h3");
+                questionH3.textContent = `${index + 1}. ${data.question}`;
+                problemDiv.appendChild(questionH3);
+
+                const optionsDiv = document.createElement("div");
+                optionsDiv.classList.add("options");
+
+                data.options.forEach(option => {
+                    const optionLabel = document.createElement("label");
+                    optionLabel.classList.add("option");
+
+                    const optionInput = document.createElement("input");
+                    optionInput.type = "radio";
+                    optionInput.name = `question${index}`;
+                    optionInput.value = option;
+                    optionLabel.appendChild(optionInput);
+
+                    const optionText = document.createTextNode(option);
+                    optionLabel.appendChild(optionText);
+
+                    optionsDiv.appendChild(optionLabel);
+                });
+
+                problemDiv.appendChild(optionsDiv);
+                quizContainer.appendChild(problemDiv);
+            });
+        }
+
+        function showResults() {
+            let score = 0;
+            quizData.forEach((data, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption && selectedOption.value === data.answer) {
+                    score++;
+                }
+            });
+            resultContainer.textContent = `لقد حصلت على ${score} من أصل ${quizData.length} درجات.`;
+        }
+
+        buildQuiz();
+        submitButton.addEventListener("click", showResults);
+    </script>
+</body>
+</html>
